@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import AddTodo from "./components/AddTodo";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export interface Todo {
+  text: string;
+  complete: boolean;
 }
 
-export default App
+const initialTodos: Todo[] = [
+  {
+    text: "aprender typescript",
+    complete: false,
+  },
+  {
+    text: "subir proyectos",
+    complete: true,
+  },
+];
+
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>(initialTodos);
+
+  const addTodo = (text: string) => {
+    const newTodo: Todo = {
+      text,
+      complete: false,
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodo = (selectedTodo: Todo) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo === selectedTodo) {
+        return { ...todo, complete: !todo.complete };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
+
+  const removeTodo = (selectedTodo: Todo) =>{
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo !== selectedTodo);
+    });
+  }
+
+  return (
+    <div className="container">
+      <h1>To Do</h1>
+      <AddTodo addTodo={addTodo} />
+      <div>
+        
+      </div>
+    </div>
+  );
+};
+
+export default App;
