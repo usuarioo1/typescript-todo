@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddTodo from "./components/AddTodo";
+import Todos from "./components/Todos";
 
 export interface Todo {
   text: string;
@@ -49,7 +50,10 @@ const App: React.FC = () => {
       <h1>To Do</h1>
       <AddTodo addTodo={addTodo} />
       <div>
-        
+        <Todos 
+        todos={todos}
+        toggleTodo={toggleTodo}
+        removeTodo={removeTodo} />
       </div>
     </div>
   );

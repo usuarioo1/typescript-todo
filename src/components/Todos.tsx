@@ -1,3 +1,5 @@
+import { Todo } from "../App";
+
 interface Props {
     todos: Todo[];
     toggleTodo: (selectedTodo: Todo) => void;
@@ -6,7 +8,7 @@ interface Props {
 }
 
 
-const Todos = ({todos, toggleTodo, removeTodo}) => {
+const Todos = ({todos, toggleTodo, removeTodo} : Props) => {
     return (
         <div>
             {todos.map((todo) => (
